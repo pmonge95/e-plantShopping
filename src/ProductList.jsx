@@ -16,6 +16,8 @@ function ProductList() {
 
     const cartItems = useSelector((state) => state.cart.items);
 
+    const cart = useSelector(state => state.cart.items);
+
     const plantsArray = [
         {
             category: "Air Purifying Plants",
@@ -325,12 +327,12 @@ function ProductList() {
                                         <div className="product-title">{plant.name}</div>
                                         <div className="product-description">{plant.description}</div>
                                         <div className="product-cost">{plant.cost}</div>
-                                        <button 
-                                            className={addedToCart[plant.name] ? "product-button added-to-cart" : "product-button"}
-                                            onClick={() => handleAddToCart(plant)}
-                                            disabled={addedToCart[plant.name]}
-                                        >
-                                        {addedToCart[plant.name] ? "Added to Cart" : "Add to Cart"} </button> 
+                                        {cart.find((cartItem) => cartItem.name === plant.name) ? (
+                                            <button className='product-button added-to-cart'>Added to Cart</button>
+                                        ): (
+                                            <button className='product-button' onClick={() => handleAddToCart(plant)}>Add to Cart</button>
+                                            
+                                        )}
                                     </div>    
                                 ))}
                             </div>
